@@ -1,113 +1,33 @@
-# Predictive Analytics & ML Dashboard
-### Customer Churn Prediction — End-to-End Pipeline
+# Telco Customer Churn Prediction 🚀
 
-**Stack:** Python · Scikit-learn · Pandas · NumPy · Matplotlib · Seaborn · Power BI
+## 📌 Overview
 
----
+End-to-end Machine Learning pipeline to predict customer churn using the Telco dataset.
 
-## Quick Start
+## ⚙️ Pipeline Stages
 
-```bash
-# 1. Install dependencies
-pip install pandas numpy scikit-learn matplotlib seaborn joblib
+* Phase 1: EDA
+* Phase 2: Feature Engineering
+* Phase 3: Model Training (SVM best)
+* Phase 4: Automated Pipeline
+* Phase 5: Power BI Dashboard
 
-# 2. Download dataset (free, no login required via direct link)
-#    https://www.kaggle.com/datasets/blastchar/telco-customer-churn
-#    Place WA_Fn-UseC_-Telco-Customer-Churn.csv in this folder
+## 🧠 Model Performance
 
-# 3. Run everything
+* Best Model: SVM
+* Accuracy: ~74%
+* AUC: ~0.81
+
+## 📊 Business Insights
+
+* Month-to-month contracts → highest churn
+* Fiber optic users → high risk
+* High monthly charges → higher churn
+
+## 🛠 Tech Stack
+
+Python, Pandas, NumPy, Scikit-learn, Power BI, Git
+
+## 🚀 Run Project
+
 python run_all.py
-```
-
----
-
-## Project Structure
-
-```
-ml_project/
-├── run_all.py                          ← Master runner (start here)
-│
-├── phase1_eda.py                       ← Data ingestion, cleaning, EDA plots
-├── phase2_feature_engineering.py       ← Encoding, scaling, feature selection
-├── phase3_model_training.py            ← RF / SVM / LR training & comparison
-├── phase4_pipeline.py                  ← Automated sklearn.Pipeline + export
-├── phase5_powerbi_dashboard.py         ← KPI calcs + dashboard preview plot
-│
-├── WA_Fn-UseC_-Telco-Customer-Churn.csv  ← Raw dataset (you provide this)
-│
-└── [Generated outputs]
-    ├── churn_cleaned.csv
-    ├── train_processed.csv
-    ├── test_processed.csv
-    ├── predictions_powerbi.csv         ← Connect this to Power BI
-    ├── model_results_summary.csv
-    ├── scaler.pkl
-    ├── feature_selector.pkl
-    ├── best_model.pkl
-    ├── full_pipeline.pkl               ← Production-ready pipeline
-    ├── eda_report.png
-    ├── feature_selection.png
-    ├── model_comparison.png
-    ├── cv_folds.png
-    └── powerbi_dashboard_preview.png
-```
-
----
-
-## Pipeline Overview
-
-```
-Raw CSV
-  └─ Phase 1: EDA
-       └─ Phase 2: Feature Engineering (30% dimensionality reduction)
-            └─ Phase 3: Model Training (RF · SVM · LR, 10-fold CV)
-                 └─ Phase 4: Automated Pipeline (>50% manual time saved)
-                      └─ Phase 5: Power BI Export + KPI Dashboard
-```
-
----
-
-## Key Results
-
-| Model               | Accuracy | F1    | AUC-ROC |
-|---------------------|----------|-------|---------|
-| Random Forest       | ~87%     | ~86%  | ~0.92   |
-| SVM                 | ~83%     | ~82%  | ~0.89   |
-| Logistic Regression | ~80%     | ~77%  | ~0.85   |
-
-- Features reduced from 20 → 14 (30% reduction via SelectFromModel)
-- Preprocessing automated via `sklearn.Pipeline` — one `.fit()` call
-- `predictions_powerbi.csv` contains CustomerID, Churn_Probability, Risk_Tier
-
----
-
-## Power BI Dashboard
-
-Connect `predictions_powerbi.csv` to Power BI Desktop.
-
-**Recommended slicers:** Contract · InternetService · Risk_Tier  
-**Recommended visuals:** KPI cards · Donut chart · Scatter · Bar chart · Table  
-
-**DAX measures:**
-```dax
-Churn Rate = 
-  DIVIDE(
-    COUNTROWS(FILTER(predictions_powerbi, [Churn_Actual] = 1)),
-    COUNTROWS(predictions_powerbi)
-  )
-
-Model Accuracy = 
-  DIVIDE(
-    COUNTROWS(FILTER(predictions_powerbi, [Churn_Actual] = [Churn_Predicted])),
-    COUNTROWS(predictions_powerbi)
-  )
-```
-
----
-
-## Resume Bullets (backed by this code)
-
-- Built end-to-end supervised ML pipeline — data ingestion, cleaning, EDA, feature engineering, model training, and evaluation — on a real-world dataset of 7,043 telecom customers.
-- Applied feature selection (SelectFromModel) reducing dimensionality by 30% (20 → 14 features) while maintaining model accuracy; compared Random Forest, SVM, and Logistic Regression with 10-fold cross-validation.
-- Developed interactive Power BI dashboard presenting model predictions, churn probabilities, and KPIs (Churn Rate, Model Accuracy, Risk Tiers), enabling non-technical stakeholders to make data-driven decisions.
-- Automated data preprocessing workflow using `sklearn.Pipeline` (imputation → encoding → scaling), cutting manual preprocessing steps by over 50% and eliminating data leakage.
